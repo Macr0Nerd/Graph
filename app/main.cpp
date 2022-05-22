@@ -2,6 +2,9 @@
 #include "UndirectedGraph.hpp"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    UndirectedGraph test = UndirectedGraph(10);
+
+
+
     return 0;
 }
