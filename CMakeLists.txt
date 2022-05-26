@@ -16,4 +16,10 @@ target_include_directories(UndirectedGraph
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         )
 
+target_include_directories(UndirectedGraph
+        PRIVATE
+        $<INSTALL_INTERFACE:interface/>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/interface>
+        )
+
 add_subdirectory(src)
