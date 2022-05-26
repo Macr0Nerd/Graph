@@ -1,5 +1,5 @@
-#ifndef UNDIRECTEDGRAPH_UNDIRECTEDGRAPH_HPP
-#define UNDIRECTEDGRAPH_UNDIRECTEDGRAPH_HPP
+#ifndef GRAPH_HPP
+#define GRAPH_HPP
 
 #include <vector>
 #include <map>
@@ -13,9 +13,10 @@ concept Printable = requires (T a) {
 };
 
 template <Printable T>
-struct UndirectedGraph {
-    int V{};
-    int E{};
+struct Graph {
+    int V{0};
+    int E{0};
+    bool directed{false};
 
     struct Vertex {
         T id;
@@ -25,24 +26,30 @@ struct UndirectedGraph {
         explicit Vertex(T uid) : adjacent(), id(uid) {};
         Vertex(T uid, std::vector<Vertex*> adj_list) : adjacent(adj_list), id(uid) {};
 
-        bool operator==(const Vertex& other) const = default;
+        bool operator==(const Vertex& other) const;
+        bool operator==(const T& uid) const;
         Vertex& operator=(const Vertex& other);
         Vertex* operator[](int index) const;
-        explicit operator std::string() const;
+        explicit operator std::string();
     };
 
     std::vector<Vertex> vertices;
 
-    UndirectedGraph() = default;
-    explicit UndirectedGraph(size_t v);
+    Graph() = default;
+    explicit Graph(bool digraph = false);
+    explicit Graph(int v, bool digraph = false);
 
-    explicit operator std::string() const;
+    explicit operator std::string();
 
-    void addEdge(const Vertex& v, Vertex* w);
-    void addVertex(const T& uid);
-    void addVertex(const T& uid, std::vector<Vertex*> adj_list);
+    bool addEdge(const Vertex& v, Vertex* w);
+    bool addVertex(const T& uid);
+    bool addVertex(const T& uid, std::vector<Vertex*> adj_list);
     auto adj(const Vertex& v) -> decltype(Vertex::adjacent);
+
+    Vertex* getVertex(const T& uid);
+
+    Graph<T> reverse();
 };
 
-#include "UndirectedGraph.tpp"
-#endif //UNDIRECTEDGRAPH_UNDIRECTEDGRAPH_HPP
+#include "Graph.tpp"
+#endif //GRAPH_HPP

@@ -1,3 +1,3 @@
-target_sources(UndirectedGraph
+target_sources(Graph
         PRIVATE
         )
