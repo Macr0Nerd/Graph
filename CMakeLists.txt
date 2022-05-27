@@ -1,25 +1,71 @@
-cmake_minimum_required(VERSION 3.23)
-project(Graph LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.15)
+project(Graph VERSION 1.0.0 LANGUAGES CXX)
 
-add_executable(Graph app/main.cpp)
+#########################
+# Create & Link Library #
+#########################
 
-set_target_properties(Graph PROPERTIES
+add_library(${PROJECT_NAME} INTERFACE)
+add_library(GRon::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+add_executable(graph_exe app/main.cpp)
+target_link_libraries(graph_exe PRIVATE GRon::Graph)
+
+set_target_properties(${PROJECT_NAME} graph_exe PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF
         PREFIX ""
         )
 
-target_include_directories(Graph
-        PUBLIC
+target_include_directories(${PROJECT_NAME}
+        INTERFACE
         $<INSTALL_INTERFACE:include/>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         )
 
-target_include_directories(Graph
-        PRIVATE
+target_include_directories(${PROJECT_NAME}
+        INTERFACE
         $<INSTALL_INTERFACE:interface/>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/interface>
         )
 
-add_subdirectory(src)
+###################
+# Install Library #
+###################
+
+include(GNUInstallDirs)
+set(INSTALL_CONFIG_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+
+install(TARGETS ${PROJECT_NAME}
+        EXPORT ${PROJECT_NAME}Targets
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        )
+
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+        ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion
+        ARCH_INDEPENDENT
+)
+configure_package_config_file(
+        ${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
+        ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+        INSTALL_DESTINATION ${INSTALL_CONFIG_DIR}
+)
+
+install(FILES
+        ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+        ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        DESTINATION ${INSTALL_CONFIG_DIR}
+        )
+
+export(
+        EXPORT ${PROJECT_NAME}Targets
+        NAMESPACE GRon::
+        FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake
+)
+
+set(CMAKE_EXPORT_PACKAGE_REGISTRY ON)
+export(PACKAGE ${PROJECT_NAME})

@@ -1,5 +1,6 @@
 #include "Graph.hpp"
 #include <iostream>
+#include <string>
 
 int main() {
     Graph test = Graph<std::string>(true);
