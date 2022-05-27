@@ -1,6 +1,6 @@
 # Graph
-This is an implementation of both the Undirected and Directed Graph from Algorithms 4e. 
-Everything is designed to be useable and efficient; 
+This is an implementation of both the Undirected and Directed Graph from Algorithms 4e.
+Everything is designed to be useable and efficient;
 as such, there are no getters or setters for member data and users are expected to use best practices for C++20 as to avoid issue.
 This code *does* make use of C++20 features, so it is a nonnegotiable requirement to running this.
 Most major compilers already support the features used (concepts), and as such all one may need to do is update.
@@ -18,26 +18,26 @@ To use this project is quite simple. One simply has to include in their `CMakeLi
     target_link_libraries(Foo PRIVATE GRon::Graph)
 
 ## Requirements
- * C++20
- * CMake 3.12+
+* C++20
+* CMake 3.12+
 
 ## Building
 1. Download the source code
 
-    git clone https://github.com/Macr0Nerd/Graph.git
+        git clone https://github.com/Macr0Nerd/Graph.git
 
 2. Move into and make am output directory
 
-    cd Graph
-    mkdir out
+        cd Graph
+        mkdir out
 
 3. Generate the makefiles
 
-    cmake -DCMAKE_BUILD_TYPE=Release ..
+        cmake -DCMAKE_BUILD_TYPE=Release ..
 
-4. Build & Install the project
+5. Build & Install the project
 
-    cmake --install .
+        cmake --install .
 
 
 ## License
