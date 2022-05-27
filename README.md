@@ -19,7 +19,7 @@ To use this project is quite simple. One simply has to include in their `CMakeLi
 
 ## Requirements
 * C++20
-* CMake 3.12+
+* CMake 3.15+
 
 ## Building
 1. Download the source code
