@@ -23,16 +23,22 @@ To use this project is quite simple. One simply has to include in their `CMakeLi
 
 ## Building
 1. Download the source code
+
     git clone https://github.com/Macr0Nerd/Graph.git
+
 2. Move into and make am output directory
+
     cd Graph
     mkdir out
+
 3. Generate the makefiles
+
     cmake -DCMAKE_BUILD_TYPE=Release ..
-4. Build the project
-    make
-5. Run
-    ./graph
+
+4. Build & Install the project
+
+    cmake --install .
+
 
 ## License
 MIT License
