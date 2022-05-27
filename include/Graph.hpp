@@ -38,6 +38,7 @@ struct Graph {
     Graph() = default;
     explicit Graph(bool digraph = false);
     explicit Graph(int v, bool digraph = false);
+    virtual ~Graph() = default;
 
     explicit operator std::string();
 
