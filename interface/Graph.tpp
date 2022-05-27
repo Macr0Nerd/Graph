@@ -48,9 +48,9 @@ Graph<T>::Graph(int v, bool digraph) : V(v), E(0), vertices(v), directed(digraph
 
 template<Printable T>
 bool Graph<T>::addEdge(const Vertex& v, Vertex* w) {
-    auto res = std::find(vertices.begin(), vertices.end(), v);
+    Vertex* res = getVertex(v);
 
-    if (res != vertices.end()) {
+    if (res != nullptr) {
         res->adjacent.push_back(w);
         E++;
 
@@ -66,8 +66,7 @@ bool Graph<T>::addEdge(const Vertex& v, Vertex* w) {
 
 template<Printable T>
 bool Graph<T>::addVertex(const T &uid) {
-
-    if (std::find(vertices.begin(), vertices.end(), uid) == vertices.end()) {
+    if (getVertex(uid) == nullptr) {
         vertices.push_back(Vertex(uid));
         V++;
         return true;
@@ -78,7 +77,7 @@ bool Graph<T>::addVertex(const T &uid) {
 
 template<Printable T>
 bool Graph<T>::addVertex(const T &uid, std::vector<Vertex *> adj_list) {
-    if (std::find(vertices.begin(), vertices.end(), uid) != vertices.end()) {
+    if (getVertex(uid) == nullptr) {
         vertices.push_back(Vertex(uid, adj_list));
         V++;
         return true;
@@ -89,7 +88,7 @@ bool Graph<T>::addVertex(const T &uid, std::vector<Vertex *> adj_list) {
 
 template<Printable T>
 auto Graph<T>::adj(const Vertex &v) -> decltype(Graph<T>::Vertex::adjacent) {
-    return std::find(vertices.begin(), vertices.end(), v)->adjacent;
+    return getVertex(v)->adjacent;
 }
 
 template<Printable T>
@@ -108,6 +107,14 @@ Graph<T>::operator std::string() {
 template<Printable T>
 typename Graph<T>::Vertex* Graph<T>::getVertex(const T &uid) {
     auto res = std::find(vertices.begin(), vertices.end(), uid);
+    if (res == vertices.end()) return nullptr;
+
+    return &(*res);
+}
+
+template<Printable T>
+typename Graph<T>::Vertex* Graph<T>::getVertex(const Vertex &v) {
+    auto res = std::find(vertices.begin(), vertices.end(), v);
     if (res == vertices.end()) return nullptr;
 
     return &(*res);

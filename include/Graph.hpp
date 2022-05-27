@@ -25,6 +25,7 @@ struct Graph {
         Vertex() : adjacent(), id() {};
         explicit Vertex(T uid) : adjacent(), id(uid) {};
         Vertex(T uid, std::vector<Vertex*> adj_list) : adjacent(adj_list), id(uid) {};
+        virtual ~Vertex() = default;
 
         bool operator==(const Vertex& other) const;
         bool operator==(const T& uid) const;
@@ -48,6 +49,7 @@ struct Graph {
     auto adj(const Vertex& v) -> decltype(Vertex::adjacent);
 
     Vertex* getVertex(const T& uid);
+    Vertex* getVertex(const Vertex& v);
 
     Graph<T> reverse();
 };
