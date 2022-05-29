@@ -2,7 +2,7 @@
 This is an implementation of both the Undirected and Directed Graph from Algorithms 4e.
 Everything is designed to be useable and efficient.
 
-## Usage
+### Notes & Updates
 This has been fixed, which has allowed the project to run on C++17 rather than C++20.
 This library, as of 1.1.0, implements the stream insertion operator, allowing for any class that also implements this to be the ID class.
 It also means it can be used in a wide variety of other ways.
@@ -13,6 +13,7 @@ Furthermore, this means that symbol graphs, as in Algorithms 4e, can easily be b
 This tests that a string can be constructed from the class, which is a necessity to ensure this graph can be output.
 Altering the template to accept non-printable classes is a potential improvement that may be implemented in the future.~~
 
+## Usage
 To use this project is quite simple. One simply has to include in their `CMakeLists.txt`:
 
     find_package(Graph 1.1.0 REQUIRED)
