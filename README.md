@@ -1,10 +1,6 @@
 # Graph
 This is an implementation of both the Undirected and Directed Graph from Algorithms 4e.
-Everything is designed to be useable and efficient;
-as such, there are no getters or setters for member data and users are expected to use best practices for C++20 as to avoid issue.
-This code *does* make use of C++20 features, so it is a nonnegotiable requirement to running this.
-Most major compilers already support the features used (concepts), and as such all one may need to do is update.
-In either scenario, here is a breakdown of the code.
+Everything is designed to be useable and efficient.
 
 ## Usage
 This has been fixed, which has allowed the project to run on C++17 rather than C++20.
