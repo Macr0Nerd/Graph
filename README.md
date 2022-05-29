@@ -20,6 +20,8 @@ To use this project is quite simple. One simply has to include in their `CMakeLi
     # Add Targets
     target_link_libraries(Foo PRIVATE GRon::Graph)
 
+Then, all that's necessary is to include `GRon/Graph/Graph.hpp`.
+
 ## Requirements
 * C++17
 * CMake 3.15+

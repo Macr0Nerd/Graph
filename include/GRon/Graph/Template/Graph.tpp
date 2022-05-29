@@ -1,7 +1,7 @@
 #ifndef GRAPH_TPP
 #define GRAPH_TPP
 
-#include "Graph.hpp"
+#include "GRon/Graph/Graph.hpp"
 #include <algorithm>
 
 /// Vertex

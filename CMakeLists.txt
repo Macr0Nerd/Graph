@@ -24,12 +24,6 @@ target_include_directories(${PROJECT_NAME}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         )
 
-target_include_directories(${PROJECT_NAME}
-        INTERFACE
-        $<INSTALL_INTERFACE:interface/>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/interface>
-        )
-
 ###################
 # Install Library #
 ###################
@@ -55,11 +49,19 @@ configure_package_config_file(
         INSTALL_DESTINATION ${INSTALL_CONFIG_DIR}
 )
 
+install(EXPORT ${PROJECT_NAME}Targets
+        FILE ${PROJECT_NAME}Targets.cmake
+        NAMESPACE GRon::
+        DESTINATION ${INSTALL_CONFIG_DIR}
+        )
+
 install(FILES
         ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
         ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
         DESTINATION ${INSTALL_CONFIG_DIR}
         )
+
+install(DIRECTORY include/GRon DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 export(
         EXPORT ${PROJECT_NAME}Targets
