@@ -1,18 +1,11 @@
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
 
-#include <vector>
-#include <map>
-#include <iostream>
+#include <ostream>
 #include <string>
-#include <concepts>
+#include <vector>
 
 template <typename T>
-concept Printable = requires (T a) {
-    std::string(a);
-};
-
-template <Printable T>
 struct Graph {
     int V{0};
     int E{0};
@@ -31,7 +24,13 @@ struct Graph {
         bool operator==(const T& uid) const;
         Vertex& operator=(const Vertex& other);
         Vertex* operator[](int index) const;
-        explicit operator std::string();
+
+        friend std::ostream& operator<<(std::ostream& os, const Vertex& obj) {
+            return obj.streamInsertion(os);
+        }
+
+    private:
+        std::ostream& streamInsertion(std::ostream& os) const;
     };
 
     std::vector<Vertex> vertices;
@@ -41,7 +40,7 @@ struct Graph {
     explicit Graph(int v, bool digraph = false);
     virtual ~Graph() = default;
 
-    explicit operator std::string();
+    template<class Y> friend std::ostream& operator<<(std::ostream& os, const Graph<Y>& obj);
 
     bool addEdge(const Vertex& v, Vertex* w);
     bool addVertex(const T& uid);

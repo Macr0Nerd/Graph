@@ -1,18 +1,17 @@
 #include "Graph.hpp"
 #include <iostream>
-#include <string>
 
 int main() {
-    Graph test = Graph<std::string>(true);
+    Graph test = Graph<int>(true);
 
-    test.addVertex("1");
-    std::cout << (std::string)test << std::endl;
-    test.addVertex("2");
-    std::cout << (std::string)test << std::endl;
-    test.addVertex("1");
+    test.addVertex(1);
+    std::cout << test << std::endl;
+    test.addVertex(2);
+    std::cout << test << std::endl;
+    test.addVertex(1);
     test.addEdge(test.vertices[0], &test.vertices[1]);
-    std::cout << (std::string)test << std::endl;
-    std::cout << (std::string)test.reverse() << std::endl;
+    std::cout << test << std::endl;
+    std::cout << test.reverse() << std::endl;
 
     return 0;
 }

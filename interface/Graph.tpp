@@ -5,48 +5,45 @@
 #include <algorithm>
 
 /// Vertex
-template<Printable T>
+template<typename T>
 bool Graph<T>::Vertex::operator==(const Vertex &other) const {
     return id == other.id;
 }
 
-template<Printable T>
+template<typename T>
 bool Graph<T>::Vertex::operator==(const T &uid) const {
     return id == uid;
 }
 
-template<Printable T>
+template<typename T>
 typename Graph<T>::Vertex &Graph<T>::Vertex::operator=(const Vertex &other) {
     id = other.id;
     adjacent = other.adj;
 }
 
-template<Printable T>
+template<typename T>
 typename Graph<T>::Vertex* Graph<T>::Vertex::operator[](int index) const {
     return adjacent.at(index);
 }
 
-template<Printable T>
-Graph<T>::Vertex::operator std::string() {
-    std::string ret;
-
-    ret += (std::string) id + ": ";
-
+template<typename T>
+std::ostream& Graph<T>::Vertex::streamInsertion(std::ostream &os) const {
+    os << id << ": ";
     for (auto& i : adjacent) {
-        ret += (std::string) i->id + ' ';
+        os << i->id << ' ';
     }
 
-    return ret;
+    return os;
 }
 
 /// Graph
-template<Printable T>
+template<typename T>
 Graph<T>::Graph(bool digraph) : V(0), E(0), vertices(), directed(digraph) {}
 
-template<Printable T>
+template<typename T>
 Graph<T>::Graph(int v, bool digraph) : V(v), E(0), vertices(v), directed(digraph) {}
 
-template<Printable T>
+template<typename T>
 bool Graph<T>::addEdge(const Vertex& v, Vertex* w) {
     Vertex* res = getVertex(v);
 
@@ -64,7 +61,7 @@ bool Graph<T>::addEdge(const Vertex& v, Vertex* w) {
     return false;
 }
 
-template<Printable T>
+template<typename T>
 bool Graph<T>::addVertex(const T &uid) {
     if (getVertex(uid) == nullptr) {
         vertices.push_back(Vertex(uid));
@@ -75,7 +72,7 @@ bool Graph<T>::addVertex(const T &uid) {
     return false;
 }
 
-template<Printable T>
+template<typename T>
 bool Graph<T>::addVertex(const T &uid, std::vector<Vertex *> adj_list) {
     if (getVertex(uid) == nullptr) {
         vertices.push_back(Vertex(uid, adj_list));
@@ -86,25 +83,24 @@ bool Graph<T>::addVertex(const T &uid, std::vector<Vertex *> adj_list) {
     return false;
 }
 
-template<Printable T>
+template<typename T>
 auto Graph<T>::adj(const Vertex &v) -> decltype(Graph<T>::Vertex::adjacent) {
     return getVertex(v)->adjacent;
 }
 
-template<Printable T>
-Graph<T>::operator std::string() {
-    std::string ret;
-    ret += "Vertices: " + std::to_string(V) + '\n';
-    ret += "Edges: " + std::to_string(E) + '\n';
+template<typename Y>
+std::ostream& operator<<(std::ostream& os, const Graph<Y>& obj) {
+    os << "Vertices: " << obj.V << std::endl;
+    os << "Edges: " << obj.E << std::endl;
 
-    for (Vertex& i : vertices) {
-        ret += (std::string)i + '\n';
+    for (typename Graph<Y>::Vertex i : obj.vertices) {
+        os << i << std::endl;
     }
 
-    return ret;
+    return os;
 }
 
-template<Printable T>
+template<typename T>
 typename Graph<T>::Vertex* Graph<T>::getVertex(const T &uid) {
     auto res = std::find(vertices.begin(), vertices.end(), uid);
     if (res == vertices.end()) return nullptr;
@@ -112,7 +108,7 @@ typename Graph<T>::Vertex* Graph<T>::getVertex(const T &uid) {
     return &(*res);
 }
 
-template<Printable T>
+template<typename T>
 typename Graph<T>::Vertex* Graph<T>::getVertex(const Vertex &v) {
     auto res = std::find(vertices.begin(), vertices.end(), v);
     if (res == vertices.end()) return nullptr;
@@ -120,7 +116,7 @@ typename Graph<T>::Vertex* Graph<T>::getVertex(const Vertex &v) {
     return &(*res);
 }
 
-template<Printable T>
+template<typename T>
 Graph<T> Graph<T>::reverse() {
     Graph ret = Graph<T>(directed);
 

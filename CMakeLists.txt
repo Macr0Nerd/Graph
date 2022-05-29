@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(Graph VERSION 1.0.0 LANGUAGES CXX)
+project(Graph VERSION 1.1.0 LANGUAGES CXX)
 
 #########################
 # Create & Link Library #
@@ -12,7 +12,7 @@ add_executable(graph_exe app/main.cpp)
 target_link_libraries(graph_exe PRIVATE GRon::Graph)
 
 set_target_properties(${PROJECT_NAME} graph_exe PROPERTIES
-        CXX_STANDARD 20
+        CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF
         PREFIX ""

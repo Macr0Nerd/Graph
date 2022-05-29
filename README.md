@@ -7,18 +7,24 @@ Most major compilers already support the features used (concepts), and as such a
 In either scenario, here is a breakdown of the code.
 
 ## Usage
-To use the graph, one must use an ID class for the Vertex struct that is `Printable`, as defined in `include/Graph.hpp`.
+This has been fixed, which has allowed the project to run on C++17 rather than C++20.
+This library, as of 1.1.0, implements the stream insertion operator, allowing for any class that also implements this to be the ID class.
+It also means it can be used in a wide variety of other ways.
+Irregardless, this does not affect the API and `std::string` can still very easily be used as the template type.
+Furthermore, this means that symbol graphs, as in Algorithms 4e, can easily be built by using a `Graph<int>`.
+
+~~To use the graph, one must use an ID class for the Vertex struct that is `Printable`, as defined in `include/Graph.hpp`.
 This tests that a string can be constructed from the class, which is a necessity to ensure this graph can be output.
-Altering the template to accept non-printable classes is a potential improvement that may be implemented in the future.
+Altering the template to accept non-printable classes is a potential improvement that may be implemented in the future.~~
 
 To use this project is quite simple. One simply has to include in their `CMakeLists.txt`:
 
-    find_package(Graph 1.0.0 REQUIRED)
+    find_package(Graph 1.1.0 REQUIRED)
     # Add Targets
     target_link_libraries(Foo PRIVATE GRon::Graph)
 
 ## Requirements
-* C++20
+* C++17
 * CMake 3.15+
 
 ## Building
