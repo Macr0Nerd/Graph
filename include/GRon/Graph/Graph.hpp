@@ -1,11 +1,11 @@
-#ifndef GRAPH_HPP
-#define GRAPH_HPP
+#ifndef GRON_GRAPH_HPP
+#define GRON_GRAPH_HPP
 
 #include <ostream>
 #include <string>
 #include <vector>
 
-template <typename T>
+template<typename T>
 struct Graph {
     int V{0};
     int E{0};
@@ -54,4 +54,4 @@ struct Graph {
 };
 
 #include "GRon/Graph/Template/Graph.tpp"
-#endif //GRAPH_HPP
+#endif //GRON_GRAPH_HPP

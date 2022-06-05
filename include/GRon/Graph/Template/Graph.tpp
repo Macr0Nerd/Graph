@@ -1,5 +1,5 @@
-#ifndef GRAPH_TPP
-#define GRAPH_TPP
+#ifndef GRON_GRAPH_TPP
+#define GRON_GRAPH_TPP
 
 #include "GRon/Graph/Graph.hpp"
 #include <algorithm>
@@ -133,4 +133,4 @@ Graph<T> Graph<T>::reverse() {
     return ret;
 }
 
-#endif //GRAPH_TPP
+#endif //GRON_GRAPH_TPP
