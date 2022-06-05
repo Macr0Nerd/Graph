@@ -1,6 +1,7 @@
 #ifndef GRON_GRAPH_HPP
 #define GRON_GRAPH_HPP
 
+#include <optional>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -51,8 +52,8 @@ struct Graph {
     bool addVertex(const T& uid, std::vector<Vertex*> adj_list);
     auto adj(const Vertex& v) -> decltype(Vertex::adjacent);
 
-    Vertex* getVertex(const T& uid);
-    Vertex* getVertex(const Vertex& v);
+    std::optional<Vertex*> getVertex(const T& uid);
+    std::optional<Vertex*> getVertex(const Vertex& v);
 
     Graph<T> reverse();
 };

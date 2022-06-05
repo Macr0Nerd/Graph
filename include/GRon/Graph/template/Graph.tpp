@@ -3,6 +3,7 @@
 
 #include "GRon/Graph/Graph.hpp"
 #include <algorithm>
+#include <exception>
 
 /// Vertex
 template<typename T>
@@ -45,14 +46,14 @@ Graph<T>::Graph(int v, bool digraph) : V(v), E(0), vertices(v), directed(digraph
 
 template<typename T>
 bool Graph<T>::addEdge(const Vertex& v, Vertex* w) {
-    Vertex* res = getVertex(v);
+    std::optional<Vertex*> res = getVertex(v);
 
-    if (res != nullptr) {
-        res->adjacent.push_back(w);
+    if (res.has_value()) {
+        (*res)->adjacent.push_back(w);
         E++;
 
         if (!directed) {
-            w->adjacent.push_back(&(*res));
+            w->adjacent.push_back(&(**res));
         }
 
         return true;
@@ -63,7 +64,7 @@ bool Graph<T>::addEdge(const Vertex& v, Vertex* w) {
 
 template<typename T>
 bool Graph<T>::addVertex(const T &uid) {
-    if (getVertex(uid) == nullptr) {
+    if (!getVertex(uid).has_value()) {
         vertices.push_back(Vertex(uid));
         V++;
         return true;
@@ -74,7 +75,7 @@ bool Graph<T>::addVertex(const T &uid) {
 
 template<typename T>
 bool Graph<T>::addVertex(const T &uid, std::vector<Vertex *> adj_list) {
-    if (getVertex(uid) == nullptr) {
+    if (!getVertex(uid).has_value()) {
         vertices.push_back(Vertex(uid, adj_list));
         V++;
         return true;
@@ -85,7 +86,9 @@ bool Graph<T>::addVertex(const T &uid, std::vector<Vertex *> adj_list) {
 
 template<typename T>
 auto Graph<T>::adj(const Vertex &v) -> decltype(Graph<T>::Vertex::adjacent) {
-    return getVertex(v)->adjacent;
+    std::optional<Vertex> ret = getVertex(v);
+    if (!ret.has_value()) throw std::out_of_range("v is out of bounds.");
+    return ret->adjacent;
 }
 
 template<typename Y>
@@ -101,17 +104,17 @@ std::ostream& operator<<(std::ostream& os, const Graph<Y>& obj) {
 }
 
 template<typename T>
-typename Graph<T>::Vertex* Graph<T>::getVertex(const T &uid) {
+std::optional<typename Graph<T>::Vertex*> Graph<T>::getVertex(const T &uid) {
     auto res = std::find(vertices.begin(), vertices.end(), uid);
-    if (res == vertices.end()) return nullptr;
+    if (res == vertices.end()) return std::nullopt;
 
     return &(*res);
 }
 
 template<typename T>
-typename Graph<T>::Vertex* Graph<T>::getVertex(const Vertex &v) {
+std::optional<typename Graph<T>::Vertex*> Graph<T>::getVertex(const Vertex &v) {
     auto res = std::find(vertices.begin(), vertices.end(), v);
-    if (res == vertices.end()) return nullptr;
+    if (res == vertices.end()) return std::nullopt;
 
     return &(*res);
 }
@@ -126,7 +129,7 @@ Graph<T> Graph<T>::reverse() {
 
     for (Vertex& i : vertices) {
         for (Vertex* j : i.adjacent) {
-            ret.addEdge(*ret.getVertex(j->id), ret.getVertex(i.id));
+            ret.addEdge(**ret.getVertex(j->id), *ret.getVertex(i.id));
         }
     }
 
