@@ -19,11 +19,15 @@ struct Graph {
         Vertex() : adjacent(), id() {};
         explicit Vertex(T uid) : adjacent(), id(uid) {};
         Vertex(T uid, std::vector<Vertex*> adj_list) : adjacent(adj_list), id(uid) {};
+
+        Vertex(const Vertex&) = default;
+        Vertex(Vertex&&) noexcept = default;
+        Vertex& operator=(const Vertex&) = default;
+        Vertex& operator=(Vertex&&) noexcept = default;
         virtual ~Vertex() = default;
 
         bool operator==(const Vertex& other) const;
         bool operator==(const T& uid) const;
-        Vertex& operator=(const Vertex& other);
         Vertex* operator[](int index) const;
 
         friend std::ostream& operator<<(std::ostream& os, const Vertex& obj) {
@@ -39,10 +43,11 @@ struct Graph {
     Graph() = default;
     explicit Graph(bool digraph = false);
     explicit Graph(int v, bool digraph = false);
-    Graph(const Graph& other) = default;
-    Graph(const Graph&& other)  noexcept = default;
-    Graph& operator=(const Graph& other) = default;
-    Graph& operator=(Graph&& other)  noexcept = default;
+
+    Graph(const Graph&) = default;
+    Graph<T>(Graph<T>&&) noexcept = default;
+    Graph& operator=(const Graph&) = default;
+    Graph<T>& operator=(Graph<T>&&) noexcept = default;
     virtual ~Graph() = default;
 
     template<class Y> friend std::ostream& operator<<(std::ostream& os, const Graph<Y>& obj);

@@ -17,12 +17,6 @@ bool Graph<T>::Vertex::operator==(const T &uid) const {
 }
 
 template<typename T>
-typename Graph<T>::Vertex &Graph<T>::Vertex::operator=(const Vertex &other) {
-    id = other.id;
-    adjacent = other.adj;
-}
-
-template<typename T>
 typename Graph<T>::Vertex* Graph<T>::Vertex::operator[](int index) const {
     return adjacent.at(index);
 }
