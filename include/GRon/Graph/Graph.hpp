@@ -38,6 +38,10 @@ struct Graph {
     Graph() = default;
     explicit Graph(bool digraph = false);
     explicit Graph(int v, bool digraph = false);
+    Graph(const Graph& other) = default;
+    Graph(const Graph&& other)  noexcept = default;
+    Graph& operator=(const Graph& other) = default;
+    Graph& operator=(Graph&& other)  noexcept = default;
     virtual ~Graph() = default;
 
     template<class Y> friend std::ostream& operator<<(std::ostream& os, const Graph<Y>& obj);
