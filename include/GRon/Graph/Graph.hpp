@@ -53,5 +53,5 @@ struct Graph {
     Graph<T> reverse();
 };
 
-#include "GRon/Graph/Template/Graph.tpp"
+#include "GRon/Graph/template/Graph.tpp"
 #endif //GRON_GRAPH_HPP
