@@ -55,7 +55,7 @@ struct Graph {
     bool addEdge(const Vertex& v, Vertex* w);
     bool addVertex(const T& uid);
     bool addVertex(const T& uid, std::vector<Vertex*> adj_list);
-    auto adj(const Vertex& v) -> decltype(Vertex::adjacent);
+    decltype(auto) adj(const Vertex& v);
 
     std::optional<Vertex*> getVertex(const T& uid);
     std::optional<Vertex*> getVertex(const Vertex& v);

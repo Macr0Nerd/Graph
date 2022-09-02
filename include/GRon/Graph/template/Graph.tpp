@@ -79,7 +79,7 @@ bool Graph<T>::addVertex(const T &uid, std::vector<Vertex *> adj_list) {
 }
 
 template<typename T>
-auto Graph<T>::adj(const Vertex &v) -> decltype(Graph<T>::Vertex::adjacent) {
+decltype(auto) Graph<T>::adj(const Vertex &v) {
     std::optional<Vertex> ret = getVertex(v);
     if (!ret.has_value()) throw std::out_of_range("v is out of bounds.");
     return ret->adjacent;
